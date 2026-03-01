@@ -29,9 +29,10 @@ class Fieldstate:
 
 class Board:
     player: 'Player'
-    board: list[list[Fieldstate]] = [[] for _ in range(10)]
+    board: list[list[Fieldstate]]
     ships: list[Ship]
     def __init__(self, player: 'Player'):
+        self.board = [[] for _ in range(10)]
         self.player = player
         for x in range(10):
             self.board[x] = [Fieldstate() for _ in range(10)]
