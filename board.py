@@ -80,6 +80,18 @@ class Board:
             if x + length > 9:
                 return False
 
+            """
+            Checking for everything around the ship and at the ship itself follows this logic:
+            [x - 1 + 0][y - 1] [x - 1 + 0][y] [x - 1 + 0][y + 1]
+            [x - 1 + 1][y - 1] [x - 1 + 1][y] [x - 1 + 1][y + 1]
+            [x - 1 + 2][y - 1] [x - 1 + 2][y] [x - 1 + 2][y + 1]
+            ...
+            
+            I want to start one row above the vertical ship that goes from x, y downwards and check downwards
+            so we count from 0 to length + 2 with i
+            and check for [x - 1 + i][y -1], [x - 1 + i][y + 1] and [x - 1 + i][y]
+            """
+
             for i in range(length + 2): # check with one field boundary for ships around
                 if not 0 <= x - 1 + i <= 9:
                     continue
@@ -111,6 +123,19 @@ class Board:
         if orientation == "S":
             if x - length < 0:
                 return False
+
+            """
+            Checking for everything around the ship and at the ship itself follows this logic:
+            
+            ...
+            [x + 1 - 2][y - 1] [x + 1 - 2][y] [x + 1 - 2][y + 1]
+            [x + 1 - 1][y - 1] [x + 1 - 1][y] [x + 1 - 1][y + 1]
+            [x + 1 - 0][y - 1] [x + 1 - 0][y] [x + 1 - 0][y + 1]
+
+            I want to start one row below the vertical ship that goes from x, y upwards and check upwards
+            so we count from 0 to length + 2 with i
+            and check for [x + 1 - i][y - 1], [x + 1 - i][y + 1] and [x + 1 - i][y]
+            """
 
             for i in range(length + 2): # check with one field boundary for ships around
                 if not 0 <= x + 1 - i <= 9:
@@ -144,6 +169,17 @@ class Board:
             if y + length > 9:
                 return False
 
+            """
+            Checking for everything around the ship and at the ship itself follows this logic:
+            [x - 1][y - 1 + 0] [x - 1][y - 1 + 1] [x - 1][y - 1 + 2] ...
+            [x    ][y - 1 + 0] [x    ][y - 1 + 1] [x    ][y - 1 + 2] ...
+            [x + 1][y - 1 + 0] [x + 1][y - 1 + 1] [x + 1][y - 1 + 2] ...
+
+            I want to start one column left of the horizontal ship that goes from x, y rightwards and check rightwards
+            so we count from 0 to length + 2 with i
+            and check for [x - 1][y - 1 + i], [x + 1][y - 1 + i], and [x][y - 1 + i]
+            """
+
             for i in range(length + 2): # check with one field boundary for ships around
                 if not 0 <= y - 1 + i <= 9:
                     continue
@@ -175,6 +211,17 @@ class Board:
         if orientation == "W":
             if y - length < 0: # ship too long
                 return False
+
+            """
+            Checking for everything around the ship and at the ship itself follows this logic:
+            [x - 1][y + 1 - 2] [x - 1][y + 1 - 1] [x - 1][y + 1 - 0] ...
+            [x    ][y + 1 - 2] [x    ][y + 1 - 1] [x    ][y + 1 - 0] ...
+            [x + 1][y + 1 - 2] [x + 1][y + 1 - 1] [x + 1][y + 1 - 0] ...
+
+            I want to start one column right of the horizontal ship that goes from x, y leftwards and check leftwards
+            so we count from 0 to length + 2 with i
+            and check for [x - 1][y + 1 - i], [x + 1][y + 1 - i], and [x][y + 1 - i]
+            """
 
             for i in range(length + 2): # check with one field boundary for ships around
                 if not 0 <= y + 1 - i <= 9:
