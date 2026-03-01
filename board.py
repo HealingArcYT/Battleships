@@ -1,6 +1,8 @@
 import random
+from typing import TYPE_CHECKING
 
-import player as p
+if TYPE_CHECKING:
+    from player import Player
 
 
 class Ship:
@@ -15,11 +17,21 @@ class Ship:
         self.orientation = orientation
 
 
+class Fieldstate:
+    ship: bool
+    shot: bool
+
+    def __init__(self):
+        self.ship = False
+        self.shot = False
+
+
+
 class Board:
-    player: p.Player
+    player: 'Player'
     board: list[list[Fieldstate]] = [[] for _ in range(10)]
     ships: list[Ship]
-    def __init__(self, player: p.Player):
+    def __init__(self, player: 'Player'):
         self.player = player
         for x in range(10):
             self.board[x] = [Fieldstate() for _ in range(10)]
@@ -264,12 +276,3 @@ class Board:
                     x = random.randint(0, 9)
                     y = random.randint(0, 9)
                     orientation = random.choice(["N", "S", "E", "W"])
-
-
-class Fieldstate:
-    ship: bool
-    shot: bool
-
-    def __init__(self):
-        self.ship = False
-        self.shot = False
