@@ -3,7 +3,7 @@ import board as b
 
 class Player:
     canShoot: bool
-    board: board.Board
+    board: b.Board
 
     def __init__(self):
         self.board = b.Board(self)
